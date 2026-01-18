@@ -53,8 +53,9 @@ This extension is created for **entertainment purposes only**.
 
 ## 📱 Contact & Support
 
-Join our community for updates and support:
+Join our community for updates, support, and to suggest new features:
 
+[<img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" />](https://discord.gg/pkp6UzmFNF)
 [<img src="https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white" />](https://t.me/mecroire)
 
 ---
