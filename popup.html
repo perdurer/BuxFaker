@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    :root { 
+      --primary: #00a2ff; 
+      --dark: #0f0f0f; 
+      --section: #181818; 
+      --light: #ffffff; 
+      --gray-icon: #888; 
+      --discord: #5865F2;
+      --telegram: #24A1DE;
+    }
+    
+    body { 
+      width: 260px; 
+      background: var(--dark); 
+      color: var(--light); 
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+      padding: 15px; 
+      margin: 0; 
+      overflow: hidden; 
+    }
+    
+    .header { 
+      text-align: center; 
+      margin-bottom: 20px; 
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .title-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: pointer;
+    }
+
+    .logo-wrapper {
+      position: relative;
+      width: 28px;
+      height: 28px;
+    }
+
+    .robux-logo {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      transition: opacity 0.4s ease;
+    }
+
+    .logo-blue { opacity: 0; }
+
+    .title {
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--gray-icon);
+      letter-spacing: -1px;
+      margin: 0;
+      transition: color 0.4s ease;
+    }
+
+    @keyframes spinAndExplode {
+      0% { transform: scale(1) rotate(0deg); opacity: 1; filter: blur(0px); }
+      70% { transform: scale(1.2) rotate(360deg); opacity: 1; filter: blur(0px); }
+      100% { transform: scale(3) rotate(380deg); opacity: 0; filter: blur(10px); }
+    }
+
+    .header:hover .title-container { transform: scale(1.05); }
+    .header:hover .title { color: var(--primary); }
+    .header:hover .logo-grey { opacity: 0; }
+    .header:hover .logo-blue { opacity: 1; }
+    .header:hover .logo-wrapper { 
+      animation: spinAndExplode 0.8s ease-out forwards; 
+    }
+
+    .tagline {
+      font-size: 10px;
+      color: #888;
+      margin-top: 4px;
+      font-weight: 500;
+    }
+
+    .settings-btn {
+      position: absolute;
+      right: 0;
+      top: 5px;
+      background: var(--section);
+      border: 1px solid #333;
+      color: #fff;
+      padding: 6px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .settings-btn:hover { border-color: var(--primary); transform: rotate(45deg); }
+
+    .section { 
+      background: var(--section); 
+      border-radius: 20px; 
+      padding: 12px; 
+      margin-bottom: 10px;
+    }
+    
+    input[type="text"] { 
+      width: 100%; 
+      box-sizing: border-box; 
+      padding: 12px; 
+      background: #000; 
+      border: 1px solid #333; 
+      border-radius: 20px; 
+      color: #fff; 
+      text-align: center;
+      outline: none;
+      transition: 0.3s;
+    }
+    input[type="text"]:focus { border-color: var(--primary); box-shadow: 0 0 10px rgba(0, 162, 255, 0.1); }
+
+    .preview-box { 
+      margin-top: 10px; 
+      background: rgba(0,0,0,0.3); 
+      border: 1px solid #222; 
+      border-radius: 18px; 
+      padding: 15px; 
+      text-align: center;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: default;
+      position: relative;
+      overflow: visible;
+    }
+
+    .preview-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #555;
+      margin-bottom: 8px;
+      transition: color 0.4s ease;
+    }
+
+    .preview-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    #fullPreviewDisplay { 
+      color: var(--gray-icon); 
+      font-size: 26px; 
+      font-weight: 900; 
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      letter-spacing: -0.5px;
+    }
+
+    .preview-box:hover {
+      border-color: rgba(0, 162, 255, 0.5);
+      background: rgba(0, 162, 255, 0.03);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .preview-box:hover .preview-label { color: var(--primary); }
+    .preview-box:hover #fullPreviewDisplay { 
+      color: var(--primary); 
+      transform: scale(1.15); 
+      text-shadow: 0 0 15px rgba(0, 162, 255, 0.4); 
+    }
+
+    .preview-box:hover .logo-wrapper { 
+      animation: spinAndExplode 0.8s ease-out forwards; 
+    }
+    .preview-box:hover .logo-grey { opacity: 0; }
+    .preview-box:hover .logo-blue { opacity: 1; }
+
+    .settings-section { max-height: 0; overflow: hidden; transition: 0.4s ease-in-out; opacity: 0; }
+    .settings-section.show { max-height: 80px; opacity: 1; padding: 10px 12px; }
+    .setting-item { display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: #bbb; }
+    .toggle-switch { position: relative; width: 34px; height: 18px; background: #333; border-radius: 16px; cursor: pointer; transition: 0.3s; }
+    .toggle-switch.active { background: var(--primary); }
+    .toggle-switch::after { content: ''; position: absolute; width: 14px; height: 14px; background: #fff; border-radius: 50%; top: 2px; left: 2px; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    .toggle-switch.active::after { left: 18px; }
+
+    .footer { border-top: 1px solid #222; padding-top: 15px; margin-top: 10px; display: flex; justify-content: center; gap: 15px; }
+    .social-btn { 
+      width: 36px; height: 36px; background: #1a1a1a; border-radius: 50%; display: flex; 
+      align-items: center; justify-content: center; transition: 0.3s; color: var(--gray-icon); 
+      text-decoration: none;
+    }
+    .social-btn:hover { color: #fff; transform: translateY(-3px); }
+    .btn-telegram:hover { background: var(--telegram); }
+    .btn-discord:hover { background: var(--discord); }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="title-container">
+      <div class="logo-wrapper">
+        <img src="https://i.imgur.com/sM2AjhJ.png" class="robux-logo logo-grey" alt="Robux Grey">
+        <img src="https://i.imgur.com/uVLw84q.png" class="robux-logo logo-blue" alt="Robux Blue">
+      </div>
+      <h1 class="title">BuxFaker</h1>
+    </div>
+    <div class="tagline">A forever free Robux Faker Extension!</div>
+    
+    <button class="settings-btn" id="settingsBtn">
+      <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.401 2.397 1.401 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.858 2.929 2.929 0 0 1 0 5.858z"/></svg>
+    </button>
+  </div>
+  
+  <div class="section">
+    <input type="text" id="siteAmount" placeholder="Enter Amount...">
+    
+    <div class="preview-box">
+      <div class="preview-label">ROBUX BALANCE</div>
+      <div class="preview-content">
+        <div class="logo-wrapper" style="width: 24px; height: 24px;">
+          <img src="https://i.imgur.com/sM2AjhJ.png" class="robux-logo logo-grey" alt="Robux Grey">
+          <img src="https://i.imgur.com/uVLw84q.png" class="robux-logo logo-blue" alt="Robux Blue">
+        </div>
+        <div id="fullPreviewDisplay">--</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="settings-section" id="settingsSection">
+    <div class="setting-item">
+      <span>Disable BuxFaker</span>
+      <div class="toggle-switch" id="disableToggle"></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="https://t.me/mecroire" target="_blank" class="social-btn btn-telegram">
+      <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM12.191 5.223c-.185-.828-1.011-.531-1.011-.531L4.05 7.425c-.832.333-.82.802-.82.802l2.04.636 4.717-2.972c.222-.135.426.063.26.212L6.417 9.423l-.14 2.05s.124.258.33.258c.16 0 .265-.078.36-.17l.955-.927 1.99 1.472s.75.474 1.25.021c.5-.453.484-2.288.484-2.288l.842-4.015s.114-.62-.303-.627z"/>
+      </svg>
+    </a>
+    <a href="https://discord.gg/pkp6UzmFNF" target="_blank" class="social-btn btn-discord">
+      <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M13.545 2.907a13.227 13.227 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.19 12.19 0 0 0-3.658 0 8.258 8.258 0 0 0-.412-.833.051.051 0 0 0-.052-.025 13.235 13.235 0 0 0-3.257 1.011.041.041 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032c.001.014.01.028.021.037a13.276 13.276 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019c.308-.42.582-.863.818-1.329a.05.05 0 0 0-.01-.059.051.051 0 0 0-.018-.011 8.875 8.875 0 0 1-1.248-.595.05.05 0 0 1-.02-.066.051.051 0 0 1 .015-.019c.084-.063.168-.129.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.052.052 0 0 1 .053.007c.08.066.164.132.248.195a.051.051 0 0 1-.004.085 8.254 8.254 0 0 1-1.249.594.05.05 0 0 0-.03.03.052.052 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.235 13.235 0 0 0 4.001-2.02.049.049 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.034.034 0 0 0-.02-.019Zm-8.198 7.307c-.789 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.45.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612Zm5.316 0c-.788 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612Z"/>
+      </svg>
+    </a>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
