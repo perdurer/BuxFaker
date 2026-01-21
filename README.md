@@ -47,7 +47,6 @@ Hover over the logo in the popup to trigger a **smooth rotation animation** foll
 This extension is created for **entertainment purposes only**.
 * The generated Robux are **purely visual** (client-side only).
 * They cannot be spent or used for actual purchases.
-* Refreshing the page while the extension is disabled will show your real balance.
 
 ---
 
